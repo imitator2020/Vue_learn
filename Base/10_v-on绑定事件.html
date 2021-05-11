@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="handleButtonClick('测试',$event)">按钮</button>
+        <button v-on="{mousedown: handleMouseDown, mouseup: handleMouseUp}">对象语法</button>
+    </div>
+</body>
+<script src="./js/vue.js"></script>
+<script>
+    let app = new Vue({
+        el: "#app",
+        methods: {
+            handleButtonClick:function (params, $event) {
+                console.log("按钮点击了",params);
+                console.log($event);
+            },
+            handleMouseDown: function() {
+                console.log("mousedown");
+            },
+            handleMouseUp: function() {
+                console.log("mouseup");
+            }
+        }
+    })
+</script>
+</html>

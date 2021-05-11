@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue-购物练习</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        table thead th {
+            border: 1px solid black;
+        }
+        table tbody td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{title}}</h1>
+        <table  cellspacing="0">
+            <thead>
+                <tr>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>书籍名称</th>
+                    <th>出版日期</th>
+                    <th>价格</th>
+                    <th>购买数量</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="book in bookList" :key="book.id">
+                    <td>{{book.id}}</td>
+                    <td>{{book.name}}</td>
+                    <td>{{book.date}}</td>
+                    <td>{{book.price}}</td>
+                    <td>
+                        <Button @click="handleCountSub(book.id)">-</Button>
+                        {{book.count}}
+                        <button @click="handleCountAdd(book.id)">+</button>
+                    </td>
+                    <td>
+                        <button @click="handleRemove(book.id)">移除</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>总价：{{totalPrice}}</h2>
+    </div>
+</body>
+<script src="../Js/vue.js"></script>
+<script>
+    let vue = new Vue({
+        el: "#app",
+        data() {
+            return {
+                title: "图书购物车",
+                bookList: [
+                    { id: 1, name: "《算法导论》", date: "2006-9", price: 85.00, count: 1 },
+                    { id: 2, name: "《UNIX编程艺术》", date: "2006-2", price: 59.00, count: 1 },
+                    { id: 3, name: "《编程珠玑》", date: "2008-10", price: 139.00, count: 1 },
+                    { id: 4, name: "《代码大全》", date: "2006-3", price: 128.00, count: 1 }
+                ]
+            }
+        },
+        methods: {
+            handleCountAdd: function(id) {
+                this.bookList.map(item => {
+                    if(item.id === id) {
+                        item.count++;
+                    }
+                    return item
+                })
+            },
+            handleCountSub: function(id) {
+                this.bookList.map(item => {
+                    if(item.id === id) {
+                        item.count--;
+                        if(item.count === 0) {
+                            this.handleRemove(id)
+                        }
+                    }
+                    return item;
+                })
+            },
+            handleRemove: function(id) {
+
+                console.log("移除",id);
+                this.bookList = this.bookList.filter(item => {
+                    return item.id != id;
+                })
+            }
+        },
+        computed: {
+            totalPrice: function() {
+                return this.bookList.reduce((pre, cur) => {
+                    return pre + cur.price * cur.count;
+                },0)
+            }
+        }
+    });
+</script>
+
+</html>

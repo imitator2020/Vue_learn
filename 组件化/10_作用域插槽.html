@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn>
+            <template v-slot:default="slotProps">
+                <li>{{slotProps.value}}</li>
+            </template>
+        </cpn>
+        <cpn>
+            <template v-slot:default="slotProps">
+                {{slotProps.value}}
+            </template>
+        </cpn>
+    </div>
+</body>
+<template id="cpn">
+    <div>
+        <ul>
+            <slot v-for="item in pLanguage" :value="item">
+            </slot>
+        </ul>
+    </div>
+</template>
+<script src="../Js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data() {
+            return {
+
+            }
+        },
+        components: {
+            cpn: {
+                template: "#cpn",
+                data() {
+                    return {
+                        pLanguage: ["JAVA", "JavaScript", "C", "C++", "Node.js"]
+                    }
+                }
+            }
+        }
+    })
+</script>
+
+</html>

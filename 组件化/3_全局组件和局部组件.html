@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <cpn></cpn>
+    </div>
+    <div id="app2">
+        <cpn></cpn>
+    </div>
+</body>
+<script src="../Js/vue.js"></script>
+<script>
+    const cpn = Vue.extend({
+        template: `
+            <div>
+                <h1>全局组件与局部组件</h1>    
+            </div>
+        `
+    })
+    // Vue.component('cpn', cpn)
+    const app = new Vue({
+        el: "#app",
+        components: {
+            cpn: cpn,
+        }
+    })
+    const app2 = new Vue({
+        el: "#app2",
+    })
+</script>
+</html>

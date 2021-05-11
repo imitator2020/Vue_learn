@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <cpn @getinfo="getMenu"></cpn>
+    </div>
+</body>
+<template id="cpn">
+    <ul>
+        <li v-for="menu in menuList" @click="submit(menu.name, menu.id)">{{menu.name}}</li>
+    </ul>
+</template>
+<script src="../Js/vue.js"></script>
+<script>
+    const cpn = Vue.extend({
+        template: "#cpn",
+        data () {
+            return {
+                menuList: [
+                    { id: 001, name:"3c数码" },
+                    { id: 002, name:"家用电器" },
+                    { id: 003, name:"日常用品" },
+                    { id: 004, name:"零食酒水" },
+                ]
+            }
+        },
+        methods: {
+            submit(name, id) {
+                console.log("子组件",name, id);
+                this.$emit('getinfo', name, id)
+            }
+        }
+    })
+    const app = new Vue({
+        el:"#app",
+        data () {
+            return {
+                
+            }
+        },
+        methods: {
+          getMenu(name, id) {
+            console.log("父组件", name);
+            console.log("父组件", id);
+          }  
+        },
+        components: {
+            cpn
+        }
+    })
+</script>
+</html>
